@@ -159,8 +159,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact ✉️
 
-Your Name - [@your_twitter](https://twitter.com/your_twitter) (Optional)
-Project Link: [https://github.com/your_username/seatsnap-frontend](https://github.com/your_username/seatsnap-frontend)
+Name - Ajitesh Sharma
+Email ID - 13ajitesh@gmail.com
 
 ---
 
