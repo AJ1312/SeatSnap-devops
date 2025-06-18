@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SeatSnap - Tickets for Concerts, Sports, Family Events</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <a href="#" id="logo-link">
+            <span class="logo-text">SeatSnap</span>
+          </a>
+        </div>
+        
+        <div class="nav-search">
+          <form id="search-form" class="search-form">
+            <div class="search-container">
+              <input type="text" placeholder="Search for artists, venues, events" id="search-input" class="search-input">
+              <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        
+        <nav class="main-nav">
+          <button class="hamburger" id="hamburger-menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+          </button>
+          
+          <ul class="nav-links" id="nav-links">
+            <li><a href="#" class="nav-link" data-page="home">Home</a></li>
+            <li><a href="#" class="nav-link" data-page="concerts">Concerts</a></li>
+            <li><a href="#" class="nav-link" data-page="sports">Sports</a></li>
+            <li><a href="#" class="nav-link" data-page="family">Family</a></li>
+            <li><a href="#" class="nav-link account-link">Sign In</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main>
+    <!-- Home Page -->
+    <section id="home-page" class="page active">
+      <!-- Hero Banner -->
+      <div class="hero-banner">
+        <div class="container">
+          <div class="hero-content">
+            <h1>Get tickets for your favorite events</h1>
+            <p>Concerts, sports, arts & theater, family events and more</p>
+            <div class="hero-search">
+              <form id="hero-search-form">
+                <input type="text" placeholder="Search events, artists, or venues" id="hero-search-input">
+                <select id="location-select">
+                  <option value="">All Locations</option>
+                  <option value="New York, NY">New York, NY</option>
+                  <option value="Newark, NJ">Newark, NJ</option>
+                  <option value="East Rutherford, NJ">East Rutherford, NJ</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Find Events</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Categories -->
+      <div class="categories-section">
+        <div class="container">
+          <h2 class="section-title">Browse By Category</h2>
+          <div class="categories-grid">
+            <div class="category-card" data-category="Concerts">
+              <div class="category-icon">
+                <i class="fas fa-music"></i>
+              </div>
+              <h3>Concerts</h3>
+            </div>
+            <div class="category-card" data-category="Sports">
+              <div class="category-icon">
+                <i class="fas fa-basketball-ball"></i>
+              </div>
+              <h3>Sports</h3>
+            </div>
+            <div class="category-card" data-category="Family">
+              <div class="category-icon">
+                <i class="fas fa-child"></i>
+              </div>
+              <h3>Family</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Events -->
+      <div class="featured-events">
+        <div class="container">
+          <h2 class="section-title">Featured Events</h2>
+          <div class="events-carousel">
+            <div class="event-cards" id="featured-events-container">
+              <!-- Event cards will be dynamically added here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Popular Events -->
+      <div class="popular-events">
+        <div class="container">
+          <h2 class="section-title">Popular Near You</h2>
+          <div class="events-grid" id="popular-events-container">
+            <!-- Event cards will be dynamically added here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Search/Browse Page -->
+    <section id="search-page" class="page">
+      <div class="container">
+        <div class="search-results-header">
+          <h2 class="section-title">Event Results</h2>
+          <div class="search-filters">
+            <div class="filter-group">
+              <label for="filter-date">Date</label>
+              <select id="filter-date" class="filter-select">
+                <option value="all">All Dates</option>
+                <option value="today">Today</option>
+                <option value="tomorrow">Tomorrow</option>
+                <option value="weekend">This Weekend</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-category">Category</label>
+              <select id="filter-category" class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="Concerts">Concerts</option>
+                <option value="Sports">Sports</option>
+                <option value="Family">Family</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-price">Price</label>
+              <select id="filter-price" class="filter-select">
+                <option value="all">All Prices</option>
+                <option value="0-50">$0 - $50</option>
+                <option value="50-100">$50 - $100</option>
+                <option value="100-200">$100 - $200</option>
+                <option value="200+">$200+</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="view-toggle">
+          <button class="toggle-btn active" id="grid-view-btn"><i class="fas fa-th"></i> Grid</button>
+          <button class="toggle-btn" id="list-view-btn"><i class="fas fa-list"></i> List</button>
+        </div>
+        <div id="search-results" class="events-grid">
+          <!-- Search results will be populated dynamically -->
+        </div>
+        <div class="pagination">
+          <button class="pagination-btn" id="prev-page" disabled><i class="fas fa-chevron-left"></i> Previous</button>
+          <div class="page-numbers" id="page-numbers">
+            <span class="page-number active">1</span>
+          </div>
+          <button class="pagination-btn" id="next-page">Next <i class="fas fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Detail Page -->
+    <section id="event-detail-page" class="page">
+      <div class="event-detail-container" id="event-detail-container">
+        <!-- Event details will be dynamically added here -->
+      </div>
+    </section>
+
+    <!-- Seat Selection Page -->
+    <section id="seat-selection-page" class="page">
+      <div class="container">
+        <div class="seat-selection-header">
+          <h2 class="section-title" id="seat-selection-event-title"></h2>
+          <div class="event-info" id="seat-selection-event-info"></div>
+          <div class="countdown-timer" id="countdown-timer">
+            <span class="timer-label">Time remaining to complete selection:</span>
+            <span class="timer" id="selection-timer">10:00</span>
+          </div>
+        </div>
+        
+        <div class="seat-selection-container">
+          <div class="seat-map-container">
+            <div class="venue-controls">
+              <button class="btn btn-sm" id="zoom-in"><i class="fas fa-search-plus"></i></button>
+              <button class="btn btn-sm" id="zoom-out"><i class="fas fa-search-minus"></i></button>
+              <button class="btn btn-sm" id="reset-view"><i class="fas fa-sync"></i></button>
+            </div>
+            <div class="seat-map" id="seat-map">
+              <!-- Seat map will be dynamically generated -->
+            </div>
+            <div class="seat-legend">
+              <div class="legend-item">
+                <div class="legend-color available"></div>
+                <span>Available</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color selected"></div>
+                <span>Selected</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color unavailable"></div>
+                <span>Unavailable</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="seat-selection-sidebar">
+            <div class="price-tiers">
+              <h3>Price Tiers</h3>
+              <div class="tier-list" id="price-tiers">
+                <!-- Price tiers will be dynamically added -->
+              </div>
+            </div>
+            
+            <div class="selected-seats">
+              <h3>Selected Seats</h3>
+              <div id="selected-seats-list">
+                <p class="no-seats-message">No seats selected</p>
+                <!-- Selected seats will be dynamically added -->
+              </div>
+              
+              <div class="seat-selection-summary">
+                <div class="summary-item">
+                  <span>Ticket Total:</span>
+                  <span id="ticket-total">$0.00</span>
+                </div>
+                <div class="summary-item">
+                  <span>Service Fees:</span>
+                  <span id="service-fees">$0.00</span>
+                </div>
+                <div class="summary-item total">
+                  <span>Order Total:</span>
+                  <span id="order-total">$0.00</span>
+                </div>
+              </div>
+              
+              <div class="seat-selection-actions">
+                <button class="btn btn-secondary" id="clear-seats">Clear Selection</button>
+                <button class="btn btn-primary" id="add-to-cart" disabled>Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checkout Page -->
+    <section id="checkout-page" class="page">
+      <div class="container">
+        <div class="checkout-header">
+          <h2 class="section-title">Secure Checkout</h2>
+          <div class="checkout-progress">
+            <div class="progress-step active">
+              <div class="step-number">1</div>
+              <div class="step-label">Tickets</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step active">
+              <div class="step-number">2</div>
+              <div class="step-label">Delivery</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step active">
+              <div class="step-number">3</div>
+              <div class="step-label">Payment</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step">
+              <div class="step-number">4</div>
+              <div class="step-label">Confirmation</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="checkout-container">
+          <div class="checkout-main">
+            <div class="checkout-section">
+              <h3 class="checkout-section-title">Delivery Method</h3>
+              <div class="delivery-options">
+                <div class="delivery-option">
+                  <input type="radio" name="delivery" id="mobile-delivery" checked>
+                  <label for="mobile-delivery">
+                    <div class="option-title">Mobile Entry</div>
+                    <div class="option-description">Free - Get your tickets sent to your mobile device</div>
+                  </label>
+                </div>
+                <div class="delivery-option">
+                  <input type="radio" name="delivery" id="will-call">
+                  <label for="will-call">
+                    <div class="option-title">Will Call</div>
+                    <div class="option-description">Free - Pick up at the venue box office on event day</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="checkout-section">
+              <h3 class="checkout-section-title">Contact Information</h3>
+              <form id="contact-form" class="checkout-form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <input type="tel" id="phone" required>
+                </div>
+              </form>
+            </div>
+            
+            <div class="checkout-section">
+              <h3 class="checkout-section-title">Payment Method</h3>
+              <div class="payment-options">
+                <div class="payment-cards">
+                  <i class="fab fa-cc-visa payment-icon"></i>
+                  <i class="fab fa-cc-mastercard payment-icon"></i>
+                  <i class="fab fa-cc-amex payment-icon"></i>
+                  <i class="fab fa-cc-discover payment-icon"></i>
+                </div>
+                <form id="payment-form" class="checkout-form">
+                  <div class="form-group">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="expiry-date">Expiry Date</label>
+                      <input type="text" id="expiry-date" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="security-code">Security Code</label>
+                      <input type="text" id="security-code" placeholder="CVV" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="billing-zip">Billing Zip Code</label>
+                    <input type="text" id="billing-zip" required>
+                  </div>
+                </form>
+              </div>
+            </div>
+            
+            <div class="checkout-actions">
+              <button class="btn btn-secondary" id="back-to-seats">Back to Seats</button>
+              <button class="btn btn-primary" id="complete-purchase">Complete Purchase</button>
+            </div>
+          </div>
+          
+          <div class="checkout-sidebar">
+            <div class="order-summary">
+              <h3 class="sidebar-title">Order Summary</h3>
+              <div id="checkout-event-details">
+                <!-- Event details will be dynamically added -->
+              </div>
+              
+              <div id="checkout-tickets">
+                <!-- Ticket details will be dynamically added -->
+              </div>
+              
+              <div class="summary-details">
+                <div class="summary-line">
+                  <span>Ticket Total:</span>
+                  <span id="checkout-ticket-total">$0.00</span>
+                </div>
+                <div class="summary-line">
+                  <span>Service Fees:</span>
+                  <span id="checkout-service-fees">$0.00</span>
+                </div>
+                <div class="summary-line">
+                  <span>Processing Fee:</span>
+                  <span id="checkout-processing-fee">$2.95</span>
+                </div>
+                <div class="summary-line total">
+                  <span>Order Total:</span>
+                  <span id="checkout-order-total">$0.00</span>
+                </div>
+              </div>
+              
+              <div class="order-policies">
+                <p>All sales are final. No refunds or exchanges.</p>
+                <p>By placing your order, you agree to our <a href="#" target="_blank">Terms of Use</a> and <a href="#" target="_blank">Purchase Policy</a>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Confirmation Page -->
+    <section id="confirmation-page" class="page">
+      <div class="container">
+        <div class="confirmation-container">
+          <div class="confirmation-header">
+            <div class="confirmation-icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="section-title">Order Confirmed!</h2>
+            <p class="confirmation-message">Your tickets have been secured and will be delivered to your mobile device.</p>
+          </div>
+          
+          <div class="confirmation-details">
+            <div class="confirmation-section">
+              <h3>Order Information</h3>
+              <div class="confirmation-info">
+                <div class="info-item">
+                  <span class="info-label">Order Number:</span>
+                  <span class="info-value" id="order-number">TM-10293847</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Order Date:</span>
+                  <span class="info-value">June 17, 2025</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Payment Method:</span>
+                  <span class="info-value">Credit Card ending in 1234</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="confirmation-section">
+              <h3>Event Information</h3>
+              <div id="confirmation-event-details">
+                <!-- Event details will be dynamically added -->
+              </div>
+            </div>
+            
+            <div class="confirmation-section">
+              <h3>Tickets</h3>
+              <div id="confirmation-tickets">
+                <!-- Ticket details will be dynamically added -->
+              </div>
+            </div>
+            
+            <div class="ticket-preview">
+              <h3>Ticket Preview</h3>
+              <div class="ticket-card">
+                <div class="ticket-header">
+                  <div class="ticket-logo">
+                    <span class="logo-text">SeatSnap</span>
+                  </div>
+                  <div class="ticket-type">MOBILE ENTRY</div>
+                </div>
+                <div class="ticket-event-info">
+                  <h4 id="ticket-event-title"></h4>
+                  <div id="ticket-event-details"></div>
+                </div>
+                <div class="ticket-seat-info">
+                  <div id="ticket-seat-details"></div>
+                </div>
+                <div class="ticket-barcode">
+                  <img src="https://pplx-res.cloudinary.com/image/upload/v1750189429/pplx_project_search_images/d003aed43d0ba34220c354770f81539b3833eeab.jpg" alt="Ticket barcode" class="barcode-img">
+                </div>
+              </div>
+            </div>
+            
+            <div class="confirmation-actions">
+              <button class="btn btn-primary" id="view-tickets">View My Tickets</button>
+              <button class="btn btn-secondary" id="browse-more">Browse More Events</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4 class="footer-title">SeatSnap</h4>
+          <ul class="footer-links">
+            <li><a href="#" target="_blank">About Us</a></li>
+            <li><a href="#" target="_blank">Careers</a></li>
+            <li><a href="#" target="_blank">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4 class="footer-title">Support</h4>
+          <ul class="footer-links">
+            <li><a href="#" target="_blank">Help Center</a></li>
+            <li><a href="#" target="_blank">My Account</a></li>
+            <li><a href="#" target="_blank">Ticket Status</a></li>
+            <li><a href="#" target="_blank">Fan Support</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#" target="_blank">Terms of Use</a></li>
+            <li><a href="#" target="_blank">Privacy Policy</a></li>
+            <li><a href="#" target="_blank">Purchase Policy</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h4 class="footer-title">Connect With Us</h4>
+          <div class="social-icons">
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 SeatSnap. All rights reserved.</p>
+        <div class="footer-trust">
+          <span><i class="fas fa-lock"></i> Secure Checkout</span>
+          <span><i class="fas fa-shield-alt"></i> Verified Tickets</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
