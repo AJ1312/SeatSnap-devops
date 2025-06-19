@@ -44,13 +44,15 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
+                    // Removed 'toolName: 'docker'' as it's often redundant if docker is in PATH
+                    withDockerRegistry(credentialsId: 'docker') {
                         sh '''
                         echo "Building Docker image..."
-                        docker build --no-cache -t aj2005/bms:latest -f Frontend/Dockerfile Frontend .
+                        // Assuming Dockerfile is in Frontend/ and build context should be Frontend/
+                        docker build --no-cache -t aj2005/bms:${BUILD_NUMBER} -f Frontend/Dockerfile Frontend
 
                         echo "Pushing Docker image to registry..."
-                        docker push aj2005/bms:latest
+                        docker push aj2005/bms:${BUILD_NUMBER}
                         '''
                     }
                 }
@@ -64,13 +66,14 @@ pipeline {
                 docker rm bms || true
 
                 echo "Running new container on port 80..."
-                docker run -d --restart=always --name bms -p 80:80 aj2005/bms:latest
+                // Using BUILD_NUMBER for specific image version
+                docker run -d --restart=always --name bms -p 80:80 aj2005/bms:${BUILD_NUMBER}
 
                 echo "Checking running containers..."
                 docker ps -a
 
                 echo "Fetching logs..."
-                sleep 5
+                sleep 5 // Consider replacing with a more robust health check
                 docker logs bms
                 '''
             }
@@ -84,7 +87,8 @@ pipeline {
                       "Build Number: ${env.BUILD_NUMBER}<br/>" +
                       "URL: ${env.BUILD_URL}<br/>",
                 to: '13ajitesh@gmail.com',
-                attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
+                // Removed 'trivyimage.txt' as it's not generated in this pipeline
+                attachmentsPattern: 'trivyfs.txt'
         }
     }
 }
