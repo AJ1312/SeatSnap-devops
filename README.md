@@ -127,13 +127,18 @@ Once deployed, SeatSnap allows users to:
 
 ---
 
-## Roadmap 🗺️
+## Future Roadmap 🗺️
 
 * Implement full backend integration for user authentication, ticket management, and payment processing ➡️.
 * Enhance frontend UI/UX with advanced search and filtering options 🔍.
 * Add push notifications for event updates 🔔.
 * Integrate third-party APIs for venue maps and detailed event information 📍.
 * Explore serverless functions for specific backend functionalities ☁️.
+
+---
+
+## Future Roadmap
+This project is solely implemented with frontend interface of our SeatSnap site and integrating it with DevOPS and agile methodologies.
 
 ---
 
