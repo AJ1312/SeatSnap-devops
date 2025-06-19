@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: bms-container
-        image: kastrov/bms:latest  # Replace with your Docker image
+        image: aj2005/bms:latest  # Changed to your Docker image
         ports:
-        - containerPort: 3000  # Replace with the port your app runs on
+        - containerPort: 80  # Changed to 80 because Nginx serves on port 80

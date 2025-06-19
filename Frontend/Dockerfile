@@ -1,27 +1,13 @@
-# Use Node.js 18 (or your Jenkins-configured version)
-FROM node:18
+# Use a lightweight Nginx image to serve static files
+FROM nginx:alpine
 
-# Set working directory
-WORKDIR /app
+# Copy your frontend files to the Nginx web root
+# The 'Frontend' context in your Jenkinsfile's docker build command
+# makes 'Frontend' the build context.
+# So, 'COPY .' copies everything from the 'Frontend' directory into the image.
+COPY . /usr/share/nginx/html
 
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
+# Expose port 80, the default HTTP port for Nginx
+EXPOSE 80
 
-# Force install a compatible PostCSS version to fix the issue
-RUN npm install postcss@8.4.21 postcss-safe-parser@6.0.0 --legacy-peer-deps
-
-# Install dependencies
-RUN npm install
-
-# Copy the entire project
-COPY . .
-
-# Expose port 3000
-EXPOSE 3000
-
-# Set environment variable to prevent OpenSSL errors
-ENV NODE_OPTIONS=--openssl-legacy-provider
-ENV PORT=3000
-
-# Start the application
-CMD ["npm", "start"]
+# Nginx serves static files by default, no additional CMD needed

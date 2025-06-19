@@ -10,8 +10,8 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        DOCKER_IMAGE = 'kastrov/bms:latest'
-        EKS_CLUSTER_NAME = 'kastro-eks'
+        DOCKER_IMAGE = 'aj2005/bms:latest' // Changed to your Docker Hub repo
+        EKS_CLUSTER_NAME = 'ajitesh-eks'
         AWS_REGION = 'us-east-1'
     }
 
@@ -24,18 +24,19 @@ pipeline {
 
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/KastroVKiran/Book-My-Show.git'
-                sh 'ls -la'  // Verify files after checkout
+                git branch: 'main', url: 'https://github.com/AJ1312/SeatSnap-devops.git' // Changed to your Git repo
+                sh 'ls -la'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' 
+                    sh '''
                     $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectName=BMS \
-                        -Dsonar.projectKey=BMS
+                        -Dsonar.projectKey=BMS \
+                        -Dsonar.sources=. // Added to scan entire project for HTML/CSS/JS
                     '''
                 }
             }
@@ -49,30 +50,7 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh '''
-                cd bookmyshow-app
-                ls -la  # Verify package.json exists
-                if [ -f package.json ]; then
-                    rm -rf node_modules package-lock.json  # Remove old dependencies
-                    npm install  # Install fresh dependencies
-                else
-                    echo "Error: package.json not found in bookmyshow-app!"
-                    exit 1
-                fi
-                '''
-            }
-        }
-
-        stage('OWASP FS Scan') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
-
-        stage('Trivy FS Scan') {
+        stage('Trivy FS Scan') { // Removed OWASP and simplified stages for HTML/CSS/JS
             steps {
                 sh 'trivy fs . > trivyfs.txt'
             }
@@ -82,9 +60,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {
-                        sh ''' 
+                        sh '''
                         echo "Building Docker image..."
-                        docker build --no-cache -t $DOCKER_IMAGE -f bookmyshow-app/Dockerfile bookmyshow-app
+                        docker build --no-cache -t $DOCKER_IMAGE -f Frontend/Dockerfile Frontend // Adjusted Dockerfile path and context
 
                         echo "Pushing Docker image to Docker Hub..."
                         docker push $DOCKER_IMAGE
@@ -108,8 +86,8 @@ pipeline {
                     kubectl config view
 
                     echo "Deploying application to EKS..."
-                    kubectl apply -f deployment.yml
-                    kubectl apply -f service.yml
+                    kubectl apply -f deployment.yml // Assumes deployment.yml is at the root
+                    kubectl apply -f service.yml   // Assumes service.yml is at the root
 
                     echo "Verifying deployment..."
                     kubectl get pods
@@ -127,7 +105,7 @@ pipeline {
                 body: "Project: ${env.JOB_NAME}<br/>" +
                       "Build Number: ${env.BUILD_NUMBER}<br/>" +
                       "URL: ${env.BUILD_URL}<br/>",
-                to: 'kastrokiran@gmail.com',
+                to: '13ajitesh@gmail.com', // Changed to your email
                 attachmentsPattern: 'trivyfs.txt'
         }
     }
