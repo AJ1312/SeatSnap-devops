@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bms-app
+  name: seatsnap-app
   labels:
-    app: bms
+    app: seatsnap
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: bms
+      app: seatsnap
   template:
     metadata:
       labels:
-        app: bms
+        app: seatsnap
     spec:
       containers:
-      - name: bms-container
-        image: aj2005/bms:latest  # Changed to your Docker image
+      - name: seatsnap-container
+        image: aj2005/seatsnap:latest  # Changed to your Docker image
         ports:
         - containerPort: 80  # Changed to 80 because Nginx serves on port 80

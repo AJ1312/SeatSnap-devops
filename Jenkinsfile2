@@ -10,7 +10,7 @@ pipeline {
 
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
-        DOCKER_IMAGE = 'aj2005/bms:latest' // Changed to your Docker Hub repo
+        DOCKER_IMAGE = 'aj2005/seatsnap:latest' // Changed to your Docker Hub repo
         EKS_CLUSTER_NAME = 'ajitesh-eks'
         AWS_REGION = 'us-east-1'
     }
@@ -34,8 +34,8 @@ pipeline {
                 withSonarQubeEnv('sonar-server') {
                     sh '''
                     $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectName=BMS \
-                        -Dsonar.projectKey=BMS \
+                        -Dsonar.projectName=seatsnap \
+                        -Dsonar.projectKey=seatsnap \
                         -Dsonar.sources=. // Added to scan entire project for HTML/CSS/JS
                     '''
                 }

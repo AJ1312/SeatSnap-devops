@@ -24,7 +24,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar-server') {
                     sh '''
-                    $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=BMS -Dsonar.projectKey=BMS -Dsonar.sources=.
+                    $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=seatsnap -Dsonar.projectKey=seatsnap -Dsonar.sources=.
                     '''
                 }
             }
@@ -49,10 +49,10 @@ pipeline {
                         sh '''
                         echo "Building Docker image..."
                         // Assuming Dockerfile is in Frontend/ and build context should be Frontend/
-                        docker build --no-cache -t aj2005/bms:${BUILD_NUMBER} -f Frontend/Dockerfile Frontend
+                        docker build --no-cache -t aj2005/seatsnap:${BUILD_NUMBER} -f Frontend/Dockerfile Frontend
 
                         echo "Pushing Docker image to registry..."
-                        docker push aj2005/bms:${BUILD_NUMBER}
+                        docker push aj2005/seatsnap:${BUILD_NUMBER}
                         '''
                     }
                 }
@@ -62,19 +62,19 @@ pipeline {
             steps {
                 sh '''
                 echo "Stopping and removing old container..."
-                docker stop bms || true
-                docker rm bms || true
+                docker stop seatsnap || true
+                docker rm seatsnap || true
 
                 echo "Running new container on port 80..."
                 // Using BUILD_NUMBER for specific image version
-                docker run -d --restart=always --name bms -p 80:80 aj2005/bms:${BUILD_NUMBER}
+                docker run -d --restart=always --name seatsnap -p 80:80 aj2005/seatsnap:${BUILD_NUMBER}
 
                 echo "Checking running containers..."
                 docker ps -a
 
                 echo "Fetching logs..."
                 sleep 5 // Consider replacing with a more robust health check
-                docker logs bms
+                docker logs seatsnap
                 '''
             }
         }
