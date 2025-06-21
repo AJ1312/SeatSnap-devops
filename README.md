@@ -30,7 +30,7 @@ While this repository focuses on the frontend and its deployment, it is envision
 
 ### Built With 🛠️
 
-* **Frontend**: (e.g., React, Angular, Vue.js, HTML/CSS/JavaScript - *Specify your actual frontend stack here*)
+* **Frontend**: (HTML/CSS/JavaScript)
 * **Containerization**: Docker 🐳
 * **CI/CD**: Jenkins ⚙️
 * **Orchestration**: Kubernetes ☸️
