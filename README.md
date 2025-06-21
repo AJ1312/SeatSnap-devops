@@ -13,9 +13,6 @@
   - [CI/CD Pipeline](#cicd-pipeline)
   - [Infrastructure](#infrastructure)
   - [Monitoring](#monitoring)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Local Development](#local-development)
 - [Usage](#usage)
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
@@ -81,39 +78,6 @@ Continuous monitoring is established to ensure the application's health and perf
 
 * **Prometheus**: Collects metrics from the Kubernetes cluster and application 🔥.
 * **Grafana**: Provides dashboards and visualizations for real-time monitoring and alerting 📊.
-
----
-
-## Getting Started 🏁
-
-To get a local copy of the frontend up and running, follow these simple steps.
-
-### Prerequisites 📋
-
-* Node.js (LTS version recommended)
-* npm (comes with Node.js) or Yarn
-* Git
-
-### Local Development 💻
-
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/your_username/seatsnap-frontend.git](https://github.com/your_username/seatsnap-frontend.git)
-    cd seatsnap-frontend
-    ```
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    # or
-    yarn install
-    ```
-3.  **Run the development server:**
-    ```bash
-    npm start
-    # or
-    yarn start
-    ```
-    The application should now be running on `http://localhost:3000` (or another port as specified by your frontend framework).
 
 ---
 
