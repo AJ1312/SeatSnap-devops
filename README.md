@@ -128,8 +128,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact ✉️
 
-Name - Ajitesh Sharma
-Email ID - 13ajitesh@gmail.com
+* Name - Ajitesh Sharma 
+* Email ID - 13ajitesh@gmail.com
 
 ---
 
