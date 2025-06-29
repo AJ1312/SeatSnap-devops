@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: seatsnap-container
-        image: aj2005/seatsnap:latest  # Changed to your Docker image
+        image: aj2005/seatsnap:latest  
         ports:
-        - containerPort: 80  # Changed to 80 because Nginx serves on port 80
+        - containerPort: 80  
